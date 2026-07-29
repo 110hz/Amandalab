@@ -40,13 +40,13 @@ export default function Navbar({
           <a href="#home" className="flex items-center gap-2">
             <img
               src="/morpho-logo.png"
-              alt="AMANDA LAB Logo"
-              width={28}
-              height={28}
-              className="h-7 w-7"
+              alt="闪蝶 Morpho Foam Logo"
+              width={36}
+              height={36}
+              className="h-9 w-9"
             />
             <span className="text-lg font-bold tracking-tight text-text-main">
-              AMANDA LAB
+              闪蝶 Morpho Foam
             </span>
           </a>
 

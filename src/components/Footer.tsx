@@ -8,12 +8,12 @@ export default function Footer({ lang }: { lang: Lang }) {
         <div className="mb-4 flex items-center justify-center gap-2">
           <img
             src="/morpho-logo.png"
-            alt="AMANDA LAB Logo"
-            width={22}
-            height={22}
-            className="h-5 w-5"
+            alt="闪蝶 Morpho Foam Logo"
+            width={28}
+            height={28}
+            className="h-7 w-7"
           />
-          <span className="text-sm font-bold text-text-main">AMANDA LAB</span>
+          <span className="text-sm font-bold text-text-main">闪蝶 Morpho Foam</span>
         </div>
         <p className="mb-2 text-xs text-text-muted">
           {content.footer.tagline[lang]}

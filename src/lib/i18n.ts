@@ -11,7 +11,7 @@ export const content = {
     tagline: { zh: '专业饮品云顶解决方案', en: 'Professional Cloud Foam Solutions' },
     subtitle: { zh: '咖啡 / 茶饮 / 甜品全场景应用', en: 'Coffee · Tea · Dessert — All Scenarios' },
     brandName: { zh: '闪蝶浮云', en: 'MORPHO CLOUD FOAM' },
-    brandSub: { zh: 'AMANDA LAB · MORPHO 闪蝶', en: 'AMANDA LAB · MORPHO' },
+    brandSub: { zh: '闪蝶 Morpho Foam', en: 'MORPHO FOAM' },
     description: {
       zh: '「MORPHO 闪蝶」系列喷罐产品，以专利技术为核心，赋能咖啡、茶饮、甜品门店实现快速标准化出品。',
       en: '"MORPHO" series spray products, powered by patented technology, enabling coffee, tea, and dessert stores to achieve rapid standardized production.',
@@ -163,7 +163,7 @@ export const content = {
   },
   about: {
     title: { zh: '关于我们', en: 'About Us' },
-    brandName: { zh: 'AMANDA LAB · 阿曼达食研所', en: 'AMANDA LAB' },
+    brandName: { zh: '闪蝶 Morpho Foam', en: 'Morpho Foam' },
     description: {
       zh: '拾贰萃（上海）科技有限公司于 2020 年创立，是国内唯一一家具备自主研发能力、生产一体化喷罐的高科技企业。「MORPHO 闪蝶」系列由 AMANDA LAB 阿曼达食研所出品。',
       en: 'Shi\'er Foams (Shanghai) Technology Co., Ltd. was founded in 2020 as the only high-tech enterprise in China with independent R&D capability and integrated spray can production. The "MORPHO" series is produced by AMANDA LAB.',

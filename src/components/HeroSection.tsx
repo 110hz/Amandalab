@@ -46,9 +46,9 @@ export default function HeroSection({ lang }: { lang: Lang }) {
           <img
             src="/morpho-logo.png"
             alt="Logo"
-            width={16}
-            height={16}
-            className="h-4 w-4"
+            width={20}
+            height={20}
+            className="h-5 w-5"
           />
           <span className="text-xs font-medium text-morpho">
             {content.hero.brandSub[lang]}

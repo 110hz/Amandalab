@@ -3,15 +3,15 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'AMANDA LAB · MORPHO 闪蝶浮云',
-    template: '%s | AMANDA LAB',
+    default: '闪蝶 Morpho Foam · 专业饮品云顶解决方案',
+    template: '%s | 闪蝶 Morpho Foam',
   },
   description:
     'MORPHO 闪蝶浮云 — 专业饮品云顶解决方案，咖啡/茶饮/甜品全场景应用。专利技术，30分钟稳定造型，即喷即用。',
   keywords: [
     '闪蝶浮云',
+    'Morpho Foam',
     'MORPHO',
-    'AMANDA LAB',
     '云顶',
     '奶泡',
     '咖啡',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     'Cheese Foam',
   ],
   openGraph: {
-    title: 'AMANDA LAB · MORPHO 闪蝶浮云',
+    title: '闪蝶 Morpho Foam · 专业饮品云顶解决方案',
     description: '专业饮品云顶解决方案 · 咖啡/茶饮/甜品全场景应用',
     type: 'website',
   },
