@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { LangProvider } from '@/contexts/lang-context';
 
 export const metadata: Metadata = {
   title: {
@@ -33,7 +36,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <LangProvider>
+          <NavbarWrapper />
+          <main>{children}</main>
+          <FooterWrapper />
+        </LangProvider>
+      </body>
     </html>
   );
+}
+
+function NavbarWrapper() {
+  return <Navbar />;
+}
+
+function FooterWrapper() {
+  return <Footer />;
 }

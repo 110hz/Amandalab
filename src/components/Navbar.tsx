@@ -1,24 +1,23 @@
 'use client';
 
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { type Lang, content } from '@/lib/i18n';
+import { usePathname } from 'next/navigation';
+import { useLang } from '@/contexts/lang-context';
+import { content } from '@/lib/i18n';
 
 const navLinks = [
-  { key: 'home' as const, href: '#home' },
-  { key: 'products' as const, href: '#products' },
-  { key: 'faq' as const, href: '#faq' },
-  { key: 'about' as const, href: '#about' },
+  { key: 'home' as const, href: '/' },
+  { key: 'products' as const, href: '/products' },
+  { key: 'faq' as const, href: '/faq' },
+  { key: 'about' as const, href: '/about' },
 ];
 
-export default function Navbar({
-  lang,
-  onLangChange,
-}: {
-  lang: Lang;
-  onLangChange: (lang: Lang) => void;
-}) {
+export default function Navbar() {
+  const { lang, setLang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -31,13 +30,13 @@ export default function Navbar({
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/95 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
+          : 'bg-white/80 backdrop-blur-sm'
       }`}
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <img
               src="/morpho-logo.png"
               alt="闪蝶 Morpho Foam Logo"
@@ -48,23 +47,29 @@ export default function Navbar({
             <span className="text-lg font-bold tracking-tight text-text-main">
               闪蝶 Morpho Foam
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <a
-                key={link.key}
-                href={link.href}
-                className="text-sm font-medium text-text-muted transition-colors hover:text-morpho"
-              >
-                {content.nav[link.key][lang]}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === '/' ? pathname === '/' : pathname?.startsWith(link.href);
+              return (
+                <Link
+                  key={link.key}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors ${
+                    isActive ? 'text-morpho' : 'text-text-muted hover:text-morpho'
+                  }`}
+                >
+                  {content.nav[link.key][lang]}
+                </Link>
+              );
+            })}
             {/* Language Switch */}
             <div className="flex overflow-hidden rounded-full border border-border">
               <button
-                onClick={() => onLangChange('zh')}
+                onClick={() => setLang('zh')}
                 className={`px-3 py-1 text-xs font-medium transition-all ${
                   lang === 'zh'
                     ? 'bg-morpho text-white'
@@ -74,7 +79,7 @@ export default function Navbar({
                 中文
               </button>
               <button
-                onClick={() => onLangChange('en')}
+                onClick={() => setLang('en')}
                 className={`px-3 py-1 text-xs font-medium transition-all ${
                   lang === 'en'
                     ? 'bg-morpho text-white'
@@ -105,19 +110,25 @@ export default function Navbar({
         {/* Mobile Menu */}
         {mobileOpen && (
           <div className="border-t border-border bg-white pb-4 md:hidden">
-            {navLinks.map((link) => (
-              <a
-                key={link.key}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="block py-3 text-sm font-medium text-text-muted transition-colors hover:text-morpho"
-              >
-                {content.nav[link.key][lang]}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive =
+                link.href === '/' ? pathname === '/' : pathname?.startsWith(link.href);
+              return (
+                <Link
+                  key={link.key}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`block py-3 text-sm font-medium transition-colors ${
+                    isActive ? 'text-morpho' : 'text-text-muted hover:text-morpho'
+                  }`}
+                >
+                  {content.nav[link.key][lang]}
+                </Link>
+              );
+            })}
             <div className="flex gap-2 pt-2">
               <button
-                onClick={() => { onLangChange('zh'); setMobileOpen(false); }}
+                onClick={() => { setLang('zh'); setMobileOpen(false); }}
                 className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all ${
                   lang === 'zh' ? 'bg-morpho text-white' : 'bg-muted text-text-muted'
                 }`}
@@ -125,7 +136,7 @@ export default function Navbar({
                 中文
               </button>
               <button
-                onClick={() => { onLangChange('en'); setMobileOpen(false); }}
+                onClick={() => { setLang('en'); setMobileOpen(false); }}
                 className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all ${
                   lang === 'en' ? 'bg-morpho text-white' : 'bg-muted text-text-muted'
                 }`}

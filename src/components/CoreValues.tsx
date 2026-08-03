@@ -1,8 +1,9 @@
 'use client';
 
 import { type ReactElement } from 'react';
-import { type Lang, content } from '@/lib/i18n';
+import { content } from '@/lib/i18n';
 import { useFadeIn } from '@/hooks/use-fade-in';
+import { useLang } from '@/contexts/lang-context';
 
 const iconMap: Record<string, ReactElement> = {
   patent: (
@@ -31,11 +32,12 @@ const iconMap: Record<string, ReactElement> = {
   ),
 };
 
-export default function CoreValues({ lang }: { lang: Lang }) {
+export default function CoreValues() {
+  const { lang } = useLang();
   const ref = useFadeIn();
 
   return (
-    <section className="bg-cream py-20 px-6" ref={ref}>
+    <section id="core-values" className="bg-cream py-20 px-6" ref={ref}>
       <div className="mx-auto max-w-6xl">
         <h2 className="fade-in-up mb-12 text-center text-2xl font-bold text-text-main md:text-3xl">
           {content.values.title[lang]}

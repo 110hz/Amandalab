@@ -17,6 +17,8 @@ export const content = {
       en: '"MORPHO" series spray products, powered by patented technology, enabling coffee, tea, and dessert stores to achieve rapid standardized production.',
     },
     cta: { zh: '了解更多', en: 'Learn More' },
+    ctaPrimary: { zh: '查看产品', en: 'View Products' },
+    ctaSecondary: { zh: '核心价值', en: 'Core Values' },
   },
   values: {
     title: { zh: '核心价值', en: 'Core Values' },
@@ -120,9 +122,13 @@ export const content = {
         ],
       },
     ],
+    specTitle: { zh: '产品规格', en: 'Specifications' },
+    appTitle: { zh: '应用场景', en: 'Application Scenarios' },
+    appScenarios: { zh: '全场景应用', en: 'All Scenarios' },
   },
   faq: {
     title: { zh: '常见问题', en: 'FAQ' },
+    subtitle: { zh: '关于产品的常见疑问解答', en: 'Answers to common questions about our products' },
     items: [
       {
         q: { zh: '闪蝶产品的保质期是多久？', en: 'What is the shelf life of MORPHO products?' },
@@ -212,6 +218,21 @@ export const content = {
   footer: {
     rights: { zh: '版权所有', en: 'All rights reserved' },
     tagline: { zh: '期待与您携手，共创饮品新体验', en: 'Looking forward to creating new beverage experiences together' },
+    brandDesc: {
+      zh: '专业饮品云顶解决方案供应商，以专利技术赋能咖啡、茶饮、甜品门店实现快速标准化出品。',
+      en: 'Professional cloud foam solution provider, empowering coffee, tea, and dessert stores with patented technology for rapid standardized production.',
+    },
+    contactTitle: { zh: '联系我们', en: 'Contact Us' },
+    emailLabel: { zh: '邮箱', en: 'Email' },
+    addressLabel: { zh: '地址', en: 'Address' },
+    address: {
+      zh: '上海市闵行区七莘路765弄东苑新天地广场12号楼101室',
+      en: 'Room 101, Bldg 12, Xintiandi Plaza, Lane 765, Qixin Rd, Minhang, Shanghai',
+    },
+    quickLinksTitle: { zh: '快速链接', en: 'Quick Links' },
+    linkProducts: { zh: '产品与方案', en: 'Products & Solutions' },
+    linkFaq: { zh: '常见问题', en: 'FAQ' },
+    linkAbout: { zh: '关于我们', en: 'About Us' },
   },
 } as const;
 
