@@ -81,7 +81,16 @@ export default function AdminContent() {
     formData.append('category', activeCat);
     if (title) formData.append('title', title);
     if (sortOrder) formData.append('sort_order', sortOrder);
-    if (productTag) formData.append('product_tag', productTag);
+
+    // 产品图和应用图必须选择产品标签
+    if (activeCat === 'product' || activeCat === 'app') {
+      if (!productTag) {
+        alert('请选择产品标签');
+        setUploading(false);
+        return;
+      }
+      formData.append('product_tag', productTag);
+    }
 
     try {
       const res = await fetch('/api/gallery', {
@@ -237,14 +246,18 @@ export default function AdminContent() {
             </div>
             {(activeCat === 'product' || activeCat === 'app') && (
               <div className="max-w-xs">
-                <label className="mb-1 block text-xs font-medium text-text-muted">产品标签（可选，cloud/cheese）</label>
-                <input
-                  type="text"
+                <label className="mb-1 block text-xs font-medium text-text-muted">
+                  产品标签 <span className="text-red-500">*</span>
+                </label>
+                <select
                   value={productTag}
                   onChange={(e) => setProductTag(e.target.value)}
-                  placeholder="cloud 或 cheese"
                   className="w-full rounded-lg border border-border px-3 py-2 text-sm focus:border-morpho focus:outline-none focus:ring-2 focus:ring-morpho/20"
-                />
+                >
+                  <option value="">请选择产品</option>
+                  <option value="cloud">闪蝶浮云 (cloud)</option>
+                  <option value="cheese">闪蝶芝云 (cheese)</option>
+                </select>
               </div>
             )}
             <button
@@ -281,6 +294,11 @@ export default function AdminContent() {
                     <p className="truncate text-xs font-medium text-text-main">
                       {img.title || `#${img.id}`}
                     </p>
+                    {img.product_tag && (
+                      <span className="mt-1 inline-block rounded-full bg-morpho-light px-2 py-0.5 text-[10px] font-medium text-morpho">
+                        {img.product_tag === 'cloud' ? '闪蝶浮云' : img.product_tag === 'cheese' ? '闪蝶芝云' : img.product_tag}
+                      </span>
+                    )}
                     <div className="mt-2 flex items-center gap-2">
                       <input
                         type="number"

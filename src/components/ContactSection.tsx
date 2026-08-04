@@ -12,7 +12,7 @@ export default function ContactSection() {
     <section className="bg-morpho py-20 px-6 text-white" ref={ref}>
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="fade-in-up mb-4 text-2xl font-bold md:text-3xl">
-          {content.about.contact.email[lang]}
+          {lang === 'zh' ? '联系我们' : 'Contact Us'}
         </h2>
         <p className="fade-in-up mb-8 text-sm text-white/80 md:text-base" style={{ transitionDelay: '100ms' }}>
           {content.footer.tagline[lang]}

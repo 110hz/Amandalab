@@ -15,8 +15,8 @@ export async function PUT(
     const body = await request.json();
     const record = await updateImage(idNum, {
       title: body.title,
-      sortOrder: body.sort_order,
-      productTag: body.product_tag,
+      sort_order: body.sort_order,
+      product_tag: body.product_tag,
     });
 
     return NextResponse.json({ success: true, data: record });

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllImages, addImage } from '@/lib/gallery';
+import { getAllImages, createImage } from '@/lib/gallery';
 
 export async function GET() {
   try {
@@ -27,18 +27,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: '缺少分类' }, { status: 400 });
     }
 
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    const record = await addImage({
+    const record = await createImage(
       category,
-      fileName: file.name,
-      fileContent: buffer,
-      contentType: file.type,
-      title: title || undefined,
-      productTag: productTag || undefined,
-      sortOrder: sortOrderStr ? parseInt(sortOrderStr, 10) : undefined,
-    });
+      file,
+      title || undefined,
+      sortOrderStr ? parseInt(sortOrderStr, 10) : undefined,
+      productTag || undefined
+    );
 
     return NextResponse.json({ success: true, data: record });
   } catch (error) {

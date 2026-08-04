@@ -18,7 +18,7 @@ export default function Footer() {
                 alt="闪蝶 Morpho Foam"
                 width={32}
                 height={32}
-                className="h-8 w-8 brightness-0 invert"
+                className="h-8 w-8"
               />
               <span className="text-lg font-bold">闪蝶 Morpho Foam</span>
             </div>

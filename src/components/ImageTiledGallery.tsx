@@ -42,12 +42,14 @@ export default function ImageTiledGallery({
               className="fade-in-up overflow-hidden rounded-xl bg-muted shadow-sm"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <img
-                src={img.url}
-                alt={img.title || category}
-                className="w-full object-cover"
-                loading="lazy"
-              />
+              <div className="relative w-full">
+                <img
+                  src={img.url}
+                  alt={img.title || category}
+                  className="w-full h-auto block"
+                  loading="lazy"
+                />
+              </div>
             </div>
           ))}
         </div>

@@ -76,9 +76,9 @@ export default function AboutContent() {
             </p>
           </div>
 
-          {/* Cert images carousel */}
+          {/* Cert images carousel - A4 竖版双列 */}
           <div className="fade-in-up mb-8" style={{ transitionDelay: '100ms' }}>
-            <ImageCarousel category="cert" />
+            <ImageCarousel category="cert" layout="a4-duo" clickable={true} />
           </div>
 
           {/* Cert text list */}

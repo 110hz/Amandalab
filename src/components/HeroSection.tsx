@@ -85,15 +85,6 @@ export default function HeroSection() {
       )}
 
       <div className="relative z-10 mx-auto max-w-4xl text-center">
-        {/* Brand tagline badge */}
-        <div
-          className="fade-in-up mb-6 inline-flex items-center rounded-full border border-morpho/20 bg-morpho-light/50 px-4 py-1.5"
-        >
-          <span className="text-xs font-medium text-morpho">
-            {content.hero.brandSub[lang]}
-          </span>
-        </div>
-
         {/* Main title */}
         <h1
           className="fade-in-up mb-4 text-4xl font-bold tracking-tight text-text-main md:text-6xl lg:text-7xl"

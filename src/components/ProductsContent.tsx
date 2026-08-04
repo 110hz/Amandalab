@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLang } from '@/contexts/lang-context';
 import { content } from '@/lib/i18n';
 import { useFadeIn } from '@/hooks/use-fade-in';
@@ -60,12 +60,45 @@ function ProductHero({ productIdx }: { productIdx: number }) {
 function ProductImageGallery({ productTag }: { productTag: string }) {
   const { lang } = useLang();
   const [image, setImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/gallery/product?product_tag=${productTag}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data?.length) {
+          setImage(data.data[0].url);
+        } else {
+          setImage(null);
+        }
+      })
+      .catch(() => setImage(null))
+      .finally(() => setLoading(false));
+  }, [productTag]);
+
+  if (loading) {
+    return (
+      <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg">
+        <div className="aspect-square w-full flex items-center justify-center bg-gradient-to-br from-morpho-light to-cream p-8">
+          <div className="text-center text-text-muted opacity-50">
+            <div className="mx-auto mb-3 h-12 w-12 animate-pulse rounded-full bg-muted" />
+            <div className="mx-auto h-4 w-24 animate-pulse rounded bg-muted" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg">
       <div className="aspect-square w-full flex items-center justify-center bg-gradient-to-br from-morpho-light to-cream p-8">
         {image ? (
-          <img src={image} alt="Product" className="max-h-full max-w-full object-contain" />
+          <img
+            src={image}
+            alt="Product"
+            className="max-h-full max-w-full object-contain drop-shadow-xl"
+          />
         ) : (
           <div className="text-center text-text-muted">
             <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="mx-auto mb-3 opacity-30">
@@ -73,8 +106,14 @@ function ProductImageGallery({ productTag }: { productTag: string }) {
               <circle cx="9" cy="9" r="2" />
               <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
             </svg>
-            <p className="text-sm">{productTag === 'cloud' ? content.products.items[0].name[lang] : content.products.items[1].name[lang]}</p>
-            <p className="text-xs mt-1 opacity-60">{content.products.subtitle[lang]}</p>
+            <p className="text-sm">
+              {productTag === 'cloud'
+                ? content.products.items[0].name[lang]
+                : content.products.items[1].name[lang]}
+            </p>
+            <p className="text-xs mt-1 opacity-60">
+              {content.products.subtitle[lang]}
+            </p>
           </div>
         )}
       </div>
@@ -170,7 +209,7 @@ export default function ProductsContent() {
               <h3 className="mb-6 text-xl font-bold text-text-main">
                 {content.products.appTitle?.[lang] || '应用场景'}
               </h3>
-              <ImageCarousel category="app" />
+              <ImageCarousel category="app" productTag={productTag} clickable={true} />
             </div>
           </div>
         </div>
