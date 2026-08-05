@@ -35,11 +35,11 @@ export default function ImageTiledGallery({
   return (
     <section className={`${bgClass} py-16 px-6`} ref={ref}>
       <div className="mx-auto max-w-6xl">
-        <div className="fade-in-up space-y-6">
+        <div className="space-y-6">
           {images.map((img, i) => (
             <div
               key={img.id}
-              className="fade-in-up overflow-hidden rounded-xl bg-muted shadow-sm"
+              className="overflow-hidden rounded-xl bg-muted shadow-sm transition-all duration-500"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <div className="relative w-full">

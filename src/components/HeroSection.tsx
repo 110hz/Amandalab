@@ -44,14 +44,14 @@ export default function HeroSection() {
               <img
                 src={img.url}
                 alt={img.title || 'Hero background'}
-                className="h-full w-full object-cover grayscale opacity-40"
+                className="h-full w-full object-cover opacity-50"
                 loading="eager"
                 fetchPriority="high"
               />
             </div>
           ))}
           {/* Overlay gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/30 to-white/60" />
         </div>
       )}
 
