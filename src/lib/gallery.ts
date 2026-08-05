@@ -85,14 +85,13 @@ export async function createImage(
   }
 
   // 上传文件到对象存储
-  const timestamp = Date.now();
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const objectKey = `gallery/${category}/${timestamp}_${safeName}`;
+  const objectKey = `gallery/${category}/${Date.now()}_${safeName}`;
 
   const arrayBuffer = await file.arrayBuffer();
   const fileKey = await storage.uploadFile({
     fileContent: Buffer.from(arrayBuffer),
-    fileName: safeName,
+    fileName: objectKey,
     contentType: file.type || 'image/jpeg',
   });
 
