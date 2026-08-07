@@ -3,8 +3,8 @@ import AboutContent from '@/components/AboutContent';
 import ContactSection from '@/components/ContactSection';
 
 export const metadata: Metadata = {
-  title: '关于我们',
-  description: '闪蝶 Morpho Foam - 全球喷灌食品领航者',
+  title: 'About Us',
+  description: 'Morpho Foam — Global leader in aerosol spray food technology',
 };
 
 export default function AboutPage() {

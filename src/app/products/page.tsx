@@ -3,8 +3,8 @@ import ProductsContent from '@/components/ProductsContent';
 import ContactSection from '@/components/ContactSection';
 
 export const metadata: Metadata = {
-  title: '产品与方案',
-  description: '闪蝶浮云与闪蝶芝云产品介绍，专业饮品云顶解决方案',
+  title: 'Products & Solutions',
+  description: 'Morpho Cloud Foam & Cheese Foam — Professional cloud foam solutions for beverages',
 };
 
 export default function ProductsPage() {
