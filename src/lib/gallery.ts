@@ -1,5 +1,5 @@
 import { getSupabaseClient } from '@/storage/database/supabase-client';
-import { storage, getImageUrl } from '@/lib/storage';
+import { getImageUrl, uploadFile, deleteFile } from '@/lib/storage';
 
 export interface GalleryImageRecord {
   id: number;
@@ -43,13 +43,10 @@ export async function getImagesByCategory(
   if (error) throw new Error(`查询图片失败: ${error.message}`);
 
   const records = (data || []) as GalleryImageRecord[];
-  const recordsWithUrls = await Promise.all(
-    records.map(async (r) => ({
-      ...r,
-      url: await getImageUrl(r.file_key),
-    }))
-  );
-  return recordsWithUrls;
+  return records.map((r) => ({
+    ...r,
+    url: getImageUrl(r.file_key),
+  }));
 }
 
 export async function getAllImages(): Promise<GalleryImageRecord[]> {
@@ -64,13 +61,10 @@ export async function getAllImages(): Promise<GalleryImageRecord[]> {
   if (error) throw new Error(`查询图片失败: ${error.message}`);
 
   const records = (data || []) as GalleryImageRecord[];
-  const recordsWithUrls = await Promise.all(
-    records.map(async (r) => ({
-      ...r,
-      url: await getImageUrl(r.file_key),
-    }))
-  );
-  return recordsWithUrls;
+  return records.map((r) => ({
+    ...r,
+    url: getImageUrl(r.file_key),
+  }));
 }
 
 export async function createImage(
@@ -84,16 +78,11 @@ export async function createImage(
     throw new Error('无效的分类');
   }
 
-  // 上传文件到对象存储
+  // 上传文件到 Supabase Storage
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const objectKey = `gallery/${category}/${Date.now()}_${safeName}`;
+  const fileKey = `gallery/${category}/${Date.now()}_${safeName}`;
 
-  const arrayBuffer = await file.arrayBuffer();
-  const fileKey = await storage.uploadFile({
-    fileContent: Buffer.from(arrayBuffer),
-    fileName: objectKey,
-    contentType: file.type || 'image/jpeg',
-  });
+  await uploadFile(fileKey, file, file.type || 'image/jpeg');
 
   // 写入数据库
   const client = getSupabaseClient();
@@ -109,31 +98,58 @@ export async function createImage(
     .select()
     .single();
 
-  if (error) throw new Error(`保存图片失败: ${error.message}`);
+  if (error) throw new Error(`保存图片记录失败: ${error.message}`);
 
+  const record = data as GalleryImageRecord;
   return {
-    ...data,
-    url: await getImageUrl(data.file_key),
-  } as GalleryImageRecord;
+    ...record,
+    url: getImageUrl(record.file_key),
+  };
+}
+
+export async function updateImage(
+  id: number,
+  updates: { title?: string; sort_order?: number; product_tag?: string }
+): Promise<GalleryImageRecord> {
+  const client = getSupabaseClient();
+  const { data, error } = await client
+    .from('gallery_images')
+    .update({
+      ...updates,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw new Error(`更新图片失败: ${error.message}`);
+
+  const record = data as GalleryImageRecord;
+  return {
+    ...record,
+    url: getImageUrl(record.file_key),
+  };
 }
 
 export async function deleteImage(id: number): Promise<void> {
   const client = getSupabaseClient();
 
   // 先查 file_key
-  const { data: record, error: fetchErr } = await client
+  const { data: record, error: queryError } = await client
     .from('gallery_images')
     .select('file_key')
     .eq('id', id)
     .single();
 
-  if (fetchErr || !record) throw new Error('图片不存在');
+  if (queryError) throw new Error(`查询图片失败: ${queryError.message}`);
 
-  // 删除对象存储文件
-  try {
-    await storage.deleteFile({ fileKey: (record as { file_key: string }).file_key });
-  } catch {
-    // 文件删除失败不影响数据库删除
+  // 删除存储文件
+  if (record?.file_key) {
+    try {
+      await deleteFile(record.file_key);
+    } catch (e) {
+      console.warn('删除存储文件失败:', e);
+    }
   }
 
   // 删除数据库记录
@@ -142,28 +158,5 @@ export async function deleteImage(id: number): Promise<void> {
     .delete()
     .eq('id', id);
 
-  if (error) throw new Error(`删除失败: ${error.message}`);
-}
-
-export async function updateImage(
-  id: number,
-  data: { title?: string; sort_order?: number; product_tag?: string }
-): Promise<GalleryImageRecord> {
-  const client = getSupabaseClient();
-  const { data: updated, error } = await client
-    .from('gallery_images')
-    .update({
-      ...data,
-      updated_at: new Date().toISOString(),
-    })
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error) throw new Error(`更新失败: ${error.message}`);
-
-  return {
-    ...updated,
-    url: await getImageUrl(updated.file_key),
-  } as GalleryImageRecord;
+  if (error) throw new Error(`删除图片记录失败: ${error.message}`);
 }

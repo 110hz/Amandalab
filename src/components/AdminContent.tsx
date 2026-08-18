@@ -152,7 +152,7 @@ export default function AdminContent() {
           <div className="mb-6 text-center">
             <img src="/morpho-logo.png" alt="Logo" className="mx-auto mb-3 h-12 w-12" />
             <h1 className="text-xl font-bold text-text-main">管理后台</h1>
-            <p className="mt-1 text-sm text-text-muted">请输入管理员密码</p>
+            <p className="mt-1 text-sm text-text-muted"></p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
@@ -173,7 +173,6 @@ export default function AdminContent() {
             </button>
           </form>
           <p className="mt-4 text-center text-xs text-text-muted">
-            默认密码：morpho2026
           </p>
         </div>
       </div>
