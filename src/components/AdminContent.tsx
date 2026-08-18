@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
+const ADMIN_PWD_KEY = 'morpho_admin_pwd';
+
 interface GalleryImage {
   id: number;
   category: string;
@@ -21,8 +23,6 @@ const categories = [
   { value: 'advantage', label: '核心优势图' },
 ];
 
-const ADMIN_PASSWORD = 'morpho2026'; // Demo: 生产环境应使用环境变量+服务端验证
-
 export default function AdminContent() {
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState('');
@@ -34,6 +34,19 @@ export default function AdminContent() {
   const [title, setTitle] = useState('');
   const [sortOrder, setSortOrder] = useState('0');
   const [productTag, setProductTag] = useState('');
+
+  // 从 localStorage 恢复登录态
+  useEffect(() => {
+    const saved = localStorage.getItem(ADMIN_PWD_KEY);
+    if (saved) {
+      setAuthed(true);
+    }
+  }, []);
+
+  const authHeaders = (): Record<string, string> => {
+    const pwd = localStorage.getItem(ADMIN_PWD_KEY) || '';
+    return { 'x-admin-password': pwd };
+  };
 
   const loadImages = useCallback(async () => {
     setLoading(true);
@@ -56,14 +69,31 @@ export default function AdminContent() {
     }
   }, [authed, activeCat, loadImages]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setAuthed(true);
-      setError('');
-    } else {
-      setError('密码错误');
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem(ADMIN_PWD_KEY, password);
+        setAuthed(true);
+        setError('');
+      } else {
+        setError('密码错误');
+      }
+    } catch {
+      setError('登录失败，请稍后重试');
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem(ADMIN_PWD_KEY);
+    setAuthed(false);
+    setPassword('');
   };
 
   const handleUpload = async (e: React.FormEvent) => {
@@ -95,8 +125,14 @@ export default function AdminContent() {
     try {
       const res = await fetch('/api/gallery', {
         method: 'POST',
+        headers: authHeaders(),
         body: formData,
       });
+      if (res.status === 401) {
+        alert('登录已过期，请重新登录');
+        handleLogout();
+        return;
+      }
       const data = await res.json();
       if (data.success) {
         setTitle('');
@@ -117,7 +153,15 @@ export default function AdminContent() {
   const handleDelete = async (id: number) => {
     if (!confirm('确认删除这张图片？')) return;
     try {
-      const res = await fetch(`/api/gallery/item/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/gallery/item/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders(),
+      });
+      if (res.status === 401) {
+        alert('登录已过期，请重新登录');
+        handleLogout();
+        return;
+      }
       const data = await res.json();
       if (data.success) {
         loadImages();
@@ -133,9 +177,16 @@ export default function AdminContent() {
     try {
       const res = await fetch(`/api/gallery/item/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeaders(),
+        },
         body: JSON.stringify({ sort_order: newSort }),
       });
+      if (res.status === 401) {
+        handleLogout();
+        return;
+      }
       const data = await res.json();
       if (data.success) {
         loadImages();
@@ -185,7 +236,7 @@ export default function AdminContent() {
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-text-main">图片管理后台</h1>
           <button
-            onClick={() => setAuthed(false)}
+            onClick={handleLogout}
             className="rounded-lg border border-border bg-white px-4 py-2 text-sm text-text-muted hover:text-morpho"
           >
             退出

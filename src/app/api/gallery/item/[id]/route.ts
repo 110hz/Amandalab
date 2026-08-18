@@ -1,11 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { updateImage, deleteImage } from '@/lib/gallery';
+import { verifyAdminPassword } from '@/lib/auth';
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!verifyAdminPassword(request)) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     const idNum = parseInt(id, 10);
     if (isNaN(idNum)) {
@@ -27,10 +32,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!verifyAdminPassword(request)) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
     const idNum = parseInt(id, 10);
     if (isNaN(idNum)) {

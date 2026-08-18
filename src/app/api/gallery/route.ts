@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllImages, createImage } from '@/lib/gallery';
+import { verifyAdminPassword } from '@/lib/auth';
 
 export async function GET() {
   try {
@@ -13,6 +14,11 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    // 鉴权验证
+    if (!verifyAdminPassword(request)) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     const category = formData.get('category') as string;
