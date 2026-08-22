@@ -3,6 +3,13 @@ import { getSupabaseClient } from '@/storage/database/supabase-client';
 const BUCKET_NAME = process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET || 'Morpho_gallery';
 
 /**
+ * 获取当前使用的 Storage Bucket 名称（用于调试）
+ */
+export function getBucketName(): string {
+  return BUCKET_NAME;
+}
+
+/**
  * 获取公开访问的图片 URL（Supabase Storage public bucket）
  */
 export function getImageUrl(fileKey: string): string {
@@ -32,7 +39,7 @@ export async function uploadFile(
     });
 
   if (error) {
-    throw new Error(`上传文件失败: ${error.message}`);
+    throw new Error(`上传失败 [bucket: ${BUCKET_NAME}] ${error.message}`);
   }
 
   return fileKey;
@@ -46,6 +53,6 @@ export async function deleteFile(fileKey: string): Promise<void> {
   const { error } = await supabase.storage.from(BUCKET_NAME).remove([fileKey]);
 
   if (error) {
-    throw new Error(`删除文件失败: ${error.message}`);
+    throw new Error(`删除文件失败 [bucket: ${BUCKET_NAME}] ${error.message}`);
   }
 }
