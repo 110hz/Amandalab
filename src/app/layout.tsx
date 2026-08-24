@@ -22,10 +22,14 @@ export const metadata: Metadata = {
     'whipped cream',
     '闪蝶浮云',
   ],
+  icons: {
+    icon: '/morpho-logo.png',
+  },
   openGraph: {
     title: 'Morpho Foam · Professional Cloud Foam Solutions',
     description: 'Professional cloud foam solutions for coffee, tea, and desserts — all scenarios',
     type: 'website',
+    images: ['/morpho-logo.png'],
   },
 };
 
