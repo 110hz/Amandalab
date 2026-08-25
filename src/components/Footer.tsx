@@ -35,8 +35,8 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-white/70">
               <p>
                 <span className="text-white/50">{content.footer.emailLabel[lang]}：</span>
-                <a href="mailto:amandalab2020@outlook.com" className="hover:text-white transition-colors">
-                  amandalab2020@outlook.com
+                <a href="mailto:contact@amandalab.org" className="hover:text-white transition-colors">
+                  contact@amandalab.org
                 </a>
               </p>
               <p>

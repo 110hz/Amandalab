@@ -161,8 +161,8 @@ export const content = {
       {
         q: { zh: '如何订购或联系合作？', en: 'How to order or contact for partnership?' },
         a: {
-          zh: '请通过邮箱 amandalab2020@outlook.com 联系我们，或访问公司地址：上海市闵行区七莘路765弄东苑新天地广场12号楼101室。',
-          en: 'Please contact us at amandalab2020@outlook.com, or visit us at Room 101, Building 12, Xintiandi Plaza, Lane 765, Qixin Road, Minhang District, Shanghai.',
+          zh: '请通过邮箱 contact@amandalab.org 联系我们，或访问公司地址：上海市闵行区七莘路765弄东苑新天地广场12号楼101室。',
+          en: 'Please contact us at contact@amandalab.org, or visit us at Room 101, Building 12, Xintiandi Plaza, Lane 765, Qixin Road, Minhang District, Shanghai.',
         },
       },
     ],
@@ -207,7 +207,7 @@ export const content = {
     ],
     contact: {
       email: { zh: '电子邮箱', en: 'Email' },
-      emailValue: 'amandalab2020@outlook.com',
+      emailValue: 'contact@amandalab.org',
       address: { zh: '公司地址', en: 'Address' },
       addressValue: {
         zh: '上海市闵行区七莘路765弄东苑新天地广场12号楼101室',
