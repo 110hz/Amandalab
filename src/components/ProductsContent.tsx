@@ -49,7 +49,7 @@ function ProductHero({ productIdx }: { productIdx: number }) {
 
           {/* Right: product image from gallery */}
           <div className="fade-in-up" style={{ transitionDelay: '200ms' }}>
-            <ProductImageGallery productTag={productIdx === 0 ? 'cloud' : 'cheese'} />
+            <ProductImageGallery productTag={productIdx === 0 ? 'cloud' : productIdx === 1 ? 'cheese' : 'coconut'} />
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function ProductsContent() {
   const { lang } = useLang();
   const [activeProduct, setActiveProduct] = useState(0);
   const product = content.products.items[activeProduct];
-  const productTag = activeProduct === 0 ? 'cloud' : 'cheese';
+  const productTag = activeProduct === 0 ? 'cloud' : activeProduct === 1 ? 'cheese' : 'coconut';
 
   return (
     <>
@@ -209,7 +209,7 @@ export default function ProductsContent() {
               <h3 className="mb-6 text-xl font-bold text-text-main">
                 {content.products.appTitle?.[lang] || '应用场景'}
               </h3>
-              <ImageCarousel category="app" productTag={productTag} clickable={true} />
+              <ImageCarousel category="app" productTag={productTag} clickable={true} contain={true} aspectRatio="aspect-[3/4]" />
             </div>
           </div>
         </div>

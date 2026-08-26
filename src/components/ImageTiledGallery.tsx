@@ -1,58 +1,98 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useFadeIn } from '@/hooks/use-fade-in';
 
 interface GalleryImage {
   id: number;
-  url: string;
+  file_key: string;
+  sort_order: number;
   title: string | null;
+  url: string;
+}
+
+interface Props {
+  category: string;
+  productTag?: string;
+  bgClass?: string;
+  // Show bottom CTA button
+  showCta?: boolean;
+  ctaText?: string;
+  ctaHref?: string;
 }
 
 export default function ImageTiledGallery({
   category,
-  bgClass = 'bg-white',
-}: {
-  category: string;
-  bgClass?: string;
-}) {
-  const ref = useFadeIn();
+  productTag,
+  bgClass = '',
+  showCta = false,
+  ctaText = 'View Products',
+  ctaHref = '/products',
+}: Props) {
   const [images, setImages] = useState<GalleryImage[]>([]);
 
   useEffect(() => {
-    fetch(`/api/gallery/${category}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success && data.data?.length) {
-          setImages(data.data);
+    const params = new URLSearchParams();
+    if (productTag) params.set('product_tag', productTag);
+    fetch(`/api/gallery/${category}?${params.toString()}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setImages(data.data || []);
         }
       })
       .catch(() => {});
-  }, [category]);
+  }, [category, productTag]);
 
   if (images.length === 0) return null;
 
   return (
-    <section className={`${bgClass} py-16 px-6`} ref={ref}>
-      <div className="mx-auto max-w-6xl">
-        <div className="space-y-6">
-          {images.map((img, i) => (
+    <section className={`w-full py-16 md:py-20 ${bgClass}`}>
+      <div className="mx-auto max-w-7xl px-6">
+        {/* Horizontal row: equal height, auto width */}
+        <div className="flex flex-wrap items-stretch gap-4 md:gap-6">
+          {images.map((img, index) => (
             <div
               key={img.id}
-              className="overflow-hidden rounded-xl bg-muted shadow-sm transition-all duration-500"
-              style={{ transitionDelay: `${i * 100}ms` }}
+              className="min-w-0 flex-1 overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md"
+              style={{
+                animationDelay: `${index * 100}ms`,
+                transitionDelay: `${index * 50}ms`,
+              }}
             >
-              <div className="relative w-full">
-                <img
-                  src={img.url}
-                  alt={img.title || category}
-                  className="w-full h-auto block"
-                  loading="lazy"
-                />
-              </div>
+              <img
+                src={img.url}
+                alt={img.title || `${category} ${index + 1}`}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
+
+        {/* CTA Button */}
+        {showCta && (
+          <div className="mt-12 text-center">
+            <a
+              href={ctaHref}
+              className="inline-flex items-center gap-2 rounded-full bg-morpho px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-morpho/20 transition-all hover:bg-morpho-dark hover:shadow-xl hover:shadow-morpho/30 hover:-translate-y-0.5"
+            >
+              {ctaText}
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

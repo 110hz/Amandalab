@@ -14,6 +14,8 @@ interface ImageCarouselProps {
   layout?: 'single' | 'a4-duo'; // 单张大图 or A4竖版双列
   clickable?: boolean; // 是否支持点击放大
   aspectRatio?: string; // 宽高比，默认 aspect-[16/9]
+  contain?: boolean; // 图片是否完整显示（不裁切），默认false
+  maxHeight?: string; // single模式下最大高度，默认 none
 }
 
 export default function ImageCarousel({
@@ -22,6 +24,8 @@ export default function ImageCarousel({
   layout = 'single',
   clickable = true,
   aspectRatio = 'aspect-[16/9]',
+  contain = false,
+  maxHeight,
 }: ImageCarouselProps) {
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [current, setCurrent] = useState(0);
@@ -104,7 +108,7 @@ export default function ImageCarousel({
                 <img
                   src={img.url}
                   alt={img.title || category}
-                  className="h-full w-full object-cover"
+                  className={`h-full w-full ${contain ? 'object-contain' : 'object-cover'}`}
                 />
               </div>
             ))

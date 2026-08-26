@@ -8,7 +8,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <CoreValues />
-      <ImageTiledGallery category="core_values" bgClass="bg-cream" />
+      <ImageTiledGallery category="core_values" bgClass="bg-cream" showCta={true} />
       <ContactSection />
     </>
   );

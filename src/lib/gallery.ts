@@ -160,3 +160,5 @@ export async function deleteImage(id: number): Promise<void> {
 
   if (error) throw new Error(`删除图片记录失败: ${error.message}`);
 }
+
+export { getImageUrl };

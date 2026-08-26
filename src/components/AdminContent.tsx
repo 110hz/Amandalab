@@ -307,6 +307,7 @@ export default function AdminContent() {
                   <option value="">请选择产品</option>
                   <option value="cloud">闪蝶浮云 (cloud)</option>
                   <option value="cheese">闪蝶芝云 (cheese)</option>
+                  <option value="coconut">闪蝶雪椰 (coconut)</option>
                 </select>
               </div>
             )}
@@ -346,7 +347,7 @@ export default function AdminContent() {
                     </p>
                     {img.product_tag && (
                       <span className="mt-1 inline-block rounded-full bg-morpho-light px-2 py-0.5 text-[10px] font-medium text-morpho">
-                        {img.product_tag === 'cloud' ? '闪蝶浮云' : img.product_tag === 'cheese' ? '闪蝶芝云' : img.product_tag}
+                        {img.product_tag === 'cloud' ? '闪蝶浮云' : img.product_tag === 'cheese' ? '闪蝶芝云' : img.product_tag === 'coconut' ? '闪蝶雪椰' : img.product_tag}
                       </span>
                     )}
                     <div className="mt-2 flex items-center gap-2">

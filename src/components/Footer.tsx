@@ -15,12 +15,12 @@ export default function Footer() {
             <div className="mb-4 flex items-center gap-2">
               <img
                 src="/morpho-logo.png"
-                alt="闪蝶 Morpho Foam"
-                width={32}
-                height={32}
-                className="h-8 w-8"
+                alt="Morpho Foam"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-cover object-left"
               />
-              <span className="text-lg font-bold">闪蝶 Morpho Foam</span>
+              <span className="text-lg font-bold">Morpho Foam</span>
             </div>
             <p className="text-sm text-white/70 leading-relaxed">
               {content.footer.brandDesc[lang]}
@@ -44,6 +44,27 @@ export default function Footer() {
                 <br />
                 {content.footer.address[lang]}
               </p>
+              {/* Social Links */}
+              <div className="mt-5 flex items-center gap-3">
+                <a
+                  href="https://shop591080667.taobao.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  aria-label="Tmall"
+                >
+                  <span className="text-xs font-bold text-white">天猫</span>
+                </a>
+                <a
+                  href="https://www.xiaohongshu.com/user/profile/5bcd87eabffcf60001fba177"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  aria-label="Xiaohongshu"
+                >
+                  <span className="text-xs font-bold text-white">小红书</span>
+                </a>
+              </div>
             </div>
           </div>
 

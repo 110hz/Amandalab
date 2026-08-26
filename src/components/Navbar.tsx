@@ -39,13 +39,13 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2">
             <img
               src="/morpho-logo.png"
-              alt="闪蝶 Morpho Foam Logo"
+              alt="Morpho Foam Logo"
               width={36}
               height={36}
-              className="h-9 w-9"
+              className="h-9 w-9 object-cover object-left"
             />
             <span className="text-lg font-bold tracking-tight text-text-main">
-              闪蝶 Morpho Foam
+              Morpho Foam
             </span>
           </Link>
 
