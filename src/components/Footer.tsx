@@ -16,9 +16,9 @@ export default function Footer() {
               <img
                 src="/morpho-logo.png"
                 alt="Morpho Foam"
-                width={40}
-                height={40}
-                className="h-10 w-10 object-cover object-left"
+                width={48}
+                height={48}
+                className="h-12 w-12 object-contain object-left"
               />
               <span className="text-lg font-bold">Morpho Foam</span>
             </div>
