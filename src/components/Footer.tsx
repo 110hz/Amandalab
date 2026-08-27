@@ -16,11 +16,10 @@ export default function Footer() {
               <img
                 src="/morpho-logo.png"
                 alt="Morpho Foam"
-                width={48}
-                height={48}
-                className="h-12 w-12 object-contain object-left"
+                width={180}
+                height={44}
+                className="h-11 w-auto object-contain"
               />
-              <span className="text-lg font-bold">Morpho Foam</span>
             </div>
             <p className="text-sm text-white/70 leading-relaxed">
               {content.footer.brandDesc[lang]}

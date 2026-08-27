@@ -40,13 +40,10 @@ export default function Navbar() {
             <img
               src="/morpho-logo.png"
               alt="Morpho Foam Logo"
-              width={44}
-              height={44}
-              className="h-11 w-11 object-contain object-left"
+              width={180}
+              height={40}
+              className="h-10 w-auto object-contain"
             />
-            <span className="text-lg font-bold tracking-tight text-text-main">
-              Morpho Foam
-            </span>
           </Link>
 
           {/* Desktop Nav */}

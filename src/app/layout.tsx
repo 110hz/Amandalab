@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     '闪蝶浮云',
   ],
   icons: {
-    icon: '/favicon.svg',
+    icon: '/favicon-butterfly.png',
   },
   openGraph: {
     title: 'Morpho Foam · Professional Cloud Foam Solutions',
