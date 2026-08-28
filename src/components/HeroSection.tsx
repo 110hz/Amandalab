@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useLang } from '@/contexts/lang-context';
 import { content } from '@/lib/i18n';
-
+import { useFadeIn } from '@/hooks/use-fade-in';
 
 interface GalleryImage {
   id: number;
@@ -15,6 +15,7 @@ interface GalleryImage {
 
 export default function HeroSection() {
   const { lang } = useLang();
+  const sectionRef = useFadeIn();
   const [heroImages, setHeroImages] = useState<GalleryImage[]>([]);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function HeroSection() {
   const heroImg = heroImages.length > 0 ? heroImages[0].url : null;
 
   return (
-    <section className="relative w-full overflow-hidden bg-cream/30">
+    <section ref={sectionRef} className="relative w-full overflow-hidden bg-cream/30">
       {/* Background image (full, no overlay) */}
       {heroImg && (
         <div className="absolute inset-0">

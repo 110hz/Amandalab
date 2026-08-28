@@ -81,7 +81,7 @@ export default function ImageCarousel({
   return (
     <>
       <div className="relative w-full">
-        <div className={`relative overflow-hidden rounded-xl bg-muted ${layout === 'a4-duo' ? '' : aspectRatio}`}>
+        <div className={`relative overflow-hidden rounded-xl bg-muted ${layout === 'a4-duo' ? '' : maxHeight ? maxHeight : aspectRatio} flex items-center justify-center`}>
           {layout === 'a4-duo' ? (
             <div className="grid grid-cols-2 gap-3 p-3">
               {pageImages.map((img, i) => (

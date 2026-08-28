@@ -36,7 +36,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-3">
             <img
               src="/morpho-logo.png"
               alt="Morpho Foam Logo"
@@ -44,6 +44,9 @@ export default function Navbar() {
               height={40}
               className="h-10 w-auto object-contain"
             />
+            <span className="text-xl font-bold text-morpho tracking-wide">
+              Morpho Foam
+            </span>
           </Link>
 
           {/* Desktop Nav */}
