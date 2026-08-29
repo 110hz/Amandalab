@@ -39,14 +39,15 @@ export default function HeroSection() {
           <img
             src={heroImg}
             alt="Morpho Foam products"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
+            style={{ objectPosition: 'left center' }}
           />
           {/* Subtle gradient on the right for text readability */}
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-cream/95 via-cream/60 to-transparent" />
         </div>
       )}
 
-      <div className="relative mx-auto flex min-h-[520px] w-full max-w-7xl items-center px-6 py-20 md:min-h-[600px] md:py-28">
+      <div className="relative mx-auto flex min-h-[560px] w-full max-w-7xl items-center px-6 py-16 md:min-h-[680px] md:py-20">
         {/* Spacer for left side (image area) */}
         <div className="hidden w-1/2 lg:block" />
 
