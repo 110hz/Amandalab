@@ -209,7 +209,7 @@ export default function ProductsContent() {
               <h3 className="mb-6 text-xl font-bold text-text-main">
                 {content.products.appTitle?.[lang] || '应用场景'}
               </h3>
-              <ImageCarousel category="app" productTag={productTag} clickable={true} contain={true} maxHeight="max-h-[420px]" />
+              <ImageCarousel category="app" productTag={productTag} clickable={true} contain={true} maxHeight="h-[420px]" />
             </div>
           </div>
         </div>
