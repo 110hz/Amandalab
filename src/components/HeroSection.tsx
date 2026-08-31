@@ -39,8 +39,7 @@ export default function HeroSection() {
           <img
             src={heroImg}
             alt="Morpho Foam products"
-            className="h-full w-full object-contain"
-            style={{ objectPosition: 'left center' }}
+            className="h-full w-full object-contain object-center"
           />
           {/* Subtle gradient on the right for text readability */}
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-cream/95 via-cream/60 to-transparent" />
@@ -54,8 +53,8 @@ export default function HeroSection() {
         {/* Text content - right side */}
         <div className="w-full lg:w-1/2 lg:pl-12 xl:pl-16">
           <h1
-            className="fade-in-up mb-4 text-4xl font-bold tracking-tight text-text-main md:text-5xl lg:text-6xl"
-            style={{ transitionDelay: '100ms' }}
+            className="fade-in-up mb-4 whitespace-nowrap font-bold tracking-tight text-text-main"
+            style={{ transitionDelay: '100ms', fontSize: 'clamp(1.4rem, 3.5vw, 3.25rem)' }}
           >
             {content.hero.brandName[lang]}
           </h1>
@@ -82,7 +81,7 @@ export default function HeroSection() {
           </p>
 
           <div
-            className="fade-in-up flex flex-col items-start gap-4 sm:flex-row"
+            className="fade-in-up flex justify-center"
             style={{ transitionDelay: '500ms' }}
           >
             <a
@@ -90,12 +89,6 @@ export default function HeroSection() {
               className="rounded-full bg-morpho px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-morpho/20 transition-all hover:bg-morpho-dark hover:shadow-xl hover:shadow-morpho/30 hover:-translate-y-0.5"
             >
               {content.hero.ctaPrimary[lang]}
-            </a>
-            <a
-              href="#core-values"
-              className="rounded-full border border-border bg-white/80 px-8 py-3 text-sm font-semibold text-text-main backdrop-blur transition-all hover:border-morpho/30 hover:text-morpho"
-            >
-              {content.hero.ctaSecondary[lang]}
             </a>
           </div>
         </div>
